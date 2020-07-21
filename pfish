@@ -1,0 +1,42 @@
+import logging
+import time
+import sys
+import _pfish
+
+if __name__ == '__main__':
+
+    PFISH_VERSION='1.0'
+
+    #로기을 설정
+    logging.basicConfig(filename='pFishLog.log',level=logging.DEBUG,format='%(asctime)s %(message)s')
+
+    #명령줄을 인수처리
+    _pfish.parseCommandLine()
+
+    #시작시간 기록
+    startTime = time.time()
+
+    #환영메세지기록
+    logging.info('')
+    logging.info('Welcome to p-fish version'+ PFISH_VERSION+'...New scan started')
+    logging.info('')
+    _pfish.DisplayMessage('Welcome to p-fish...version'+PFISH_VERSION)
+
+    #시스템관련한 일부 정보 기록
+    logging.info('System:'+sys.platform)
+    logging.info('Version:'+sys.version)
+
+    #파일시스템 디렉토리 및 해시파일 횡단
+    filesProcessed = _pfish.Walkpath()
+
+    #종료 시간을 기록하고 기간을 계산
+    endTime = time.time()
+    duration = endTime-startTime
+
+    logging.info('File Porcessed:'+ str(filesProcessed))
+    logging.info('Elapsed Time:'+str(duration)+'seconds')
+    logging.info('')
+    logging.info('Program Terminated Normally')
+    logging.info('')
+
+    _pfish.DisplayMessage("Program End")
